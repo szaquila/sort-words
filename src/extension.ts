@@ -34,6 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
 		const edits: vscode.TextEdit[] = [];
 		for (let line = startLine; line <= endLine; line++) {
 			const lineText = document.lineAt(line).text;
+      // 如果行中不包含逗号，则不处理
+      if (!lineText.includes(',')) {
+        continue;
+      }
+
 			let textToProcess = lineText;
 			let rangeStart = 0;
 			let rangeEnd = lineText.length;
