@@ -34,8 +34,8 @@ export function activate(context: vscode.ExtensionContext) {
 		const edits: vscode.TextEdit[] = [];
 		for (let line = startLine; line <= endLine; line++) {
 			const lineText = document.lineAt(line).text;
-      // 如果行中不包含逗号，则不处理
-      if (!lineText.includes(',')) {
+      // 如果不包含最后一个字符的的所有内容都不包含逗号，则不处理
+      if (!lineText.slice(0, -1).includes(',')) {
         continue;
       }
 
@@ -85,9 +85,9 @@ function processLine(text: string): string {
 		let result = '';
 		let wordIndex = 0;
 		for (let i = 0; i < parts.length; i++) {
-			if (parts[i] === '') {
-				result += ',';
-			} else {
+			if (parts[i] !== '') {
+				// result += ',';
+			// } else {
 				result += sortedWords[wordIndex++];
 				if (i < parts.length - 1) {
 					result += ', ';
